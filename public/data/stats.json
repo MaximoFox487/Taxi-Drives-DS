@@ -1,0 +1,9 @@
+{
+  "total_points": 741359,
+  "num_taxis": 493,
+  "date_range": ["2008-02-02","2008-02-08"],
+  "bbox": {"min_lon":115.87,"max_lon":117.07,"min_lat":39.54,"max_lat":40.35},
+  "hourly": [{"hour":0,"count":28910},{"hour":1,"count":26164},{"hour":2,"count":17593},{"hour":3,"count":22556},{"hour":4,"count":22048},{"hour":5,"count":21274},{"hour":6,"count":21174},{"hour":7,"count":21338},{"hour":8,"count":22735},{"hour":9,"count":26353},{"hour":10,"count":31102},{"hour":11,"count":33842},{"hour":12,"count":36196},{"hour":13,"count":39812},{"hour":14,"count":42214},{"hour":15,"count":40739},{"hour":16,"count":42652},{"hour":17,"count":40862},{"hour":18,"count":37054},{"hour":19,"count":37189},{"hour":20,"count":35503},{"hour":21,"count":31690},{"hour":22,"count":31537},{"hour":23,"count":30822}],
+  "daily": [{"date":"2008-02-02","count":70411},{"date":"2008-02-03","count":132545},{"date":"2008-02-04","count":140666},{"date":"2008-02-05","count":130944},{"date":"2008-02-06","count":101953},{"date":"2008-02-07","count":93873},{"date":"2008-02-08","count":70967}],
+  "periods": [{"period":"evening_rush","count":157757},{"period":"night","count":129552},{"period":"midday","count":223905},{"period":"late_night","count":138545},{"period":"morning_rush","count":91600}]
+}

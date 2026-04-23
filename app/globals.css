@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  background: #0b1020;
+  color: #e6ebff;
+  min-height: 100%;
+}
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Leaflet dark-ish tweaks */
+.leaflet-container {
+  background: #0b1020;
+}
+.leaflet-control-attribution {
+  background: rgba(18, 24, 43, 0.7) !important;
+  color: #8a94b8 !important;
+}
+.leaflet-control-attribution a { color: #60a5fa !important; }
+
+.card {
+  @apply bg-panel border border-border rounded-xl p-5 shadow-lg;
+}
+.card-title {
+  @apply text-sm uppercase tracking-wider text-muted mb-2;
+}
+.kpi {
+  @apply text-2xl font-semibold text-text;
+}
+.btn {
+  @apply px-3 py-2 rounded-md bg-panel2 border border-border text-sm hover:bg-border transition-colors;
+}
+.btn-primary {
+  @apply bg-accent text-bg border-accent hover:opacity-90;
+}
+.input {
+  @apply bg-panel2 border border-border rounded-md px-3 py-2 text-sm text-text outline-none focus:border-accent2;
+}
