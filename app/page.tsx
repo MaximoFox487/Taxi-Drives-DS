@@ -34,61 +34,61 @@ export default async function HomePage() {
       <section className="card bg-gradient-to-br from-panel to-panel2">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold">Análisis de movilidad con T-Drive</h1>
+            <h1 className="text-2xl font-semibold">Mobility analysis with T-Drive</h1>
             <p className="text-muted mt-1 max-w-2xl">
-              500 taxis · 2-8 febrero 2008 · Beijing. Exploración de patrones temporales y espaciales,
-              detección de hotspots con K-Means y DBSCAN, y predicción del tiempo de viaje con modelos
-              de regresión.
+              500 taxis · Feb 2-8, 2008 · Beijing. Exploration of temporal and spatial patterns,
+              hotspot detection with K-Means and DBSCAN, and travel time prediction with regression
+              models.
             </p>
           </div>
           <div className="flex gap-2">
-            <Link href="/heatmap" className="btn btn-primary">Abrir heatmap interactivo →</Link>
-            <Link href="/taxi" className="btn">Explorar trayectoria de un taxi</Link>
+            <Link href="/heatmap" className="btn btn-primary">Open interactive heatmap →</Link>
+            <Link href="/taxi" className="btn">Explore a taxi trajectory</Link>
           </div>
         </div>
       </section>
 
       <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Kpi label="Registros GPS (limpios)" value={stats.total_points.toLocaleString()} />
-        <Kpi label="Taxis analizados" value={stats.num_taxis.toString()} />
-        <Kpi label="Hora pico" value={`${peakHour.hour}:00`} sub={`${peakHour.count.toLocaleString()} registros`} />
-        <Kpi label="Ratio laboral/fin de sem." value={`${(totalWeekday / totalWeekend).toFixed(2)}×`} />
+        <Kpi label="GPS records (cleaned)" value={stats.total_points.toLocaleString()} />
+        <Kpi label="Taxis analyzed" value={stats.num_taxis.toString()} />
+        <Kpi label="Peak hour" value={`${peakHour.hour}:00`} sub={`${peakHour.count.toLocaleString()} records`} />
+        <Kpi label="Weekday / Weekend ratio" value={`${(totalWeekday / totalWeekend).toFixed(2)}×`} />
       </section>
 
       <section className="grid md:grid-cols-2 gap-4">
         <div className="card">
-          <div className="card-title">Distribución por hora del día</div>
+          <div className="card-title">Distribution by hour of day</div>
           <HourlyChart data={stats.hourly} />
           <p className="text-xs text-muted mt-2">
-            Las barras naranjas marcan horas punta (6-10h y 16-20h). El patrón bimodal refleja los
-            desplazamientos de ida y vuelta al trabajo.
+            Orange bars mark rush hours (6-10h and 16-20h). The bimodal pattern reflects commuting
+            trips to and from work.
           </p>
         </div>
         <div className="card">
-          <div className="card-title">Distribución por día de la semana</div>
+          <div className="card-title">Distribution by day of week</div>
           <DailyChart data={stats.daily} />
           <p className="text-xs text-muted mt-2">
-            Los días laborables concentran significativamente más actividad que el fin de semana.
+            Weekdays concentrate significantly more activity than the weekend.
           </p>
         </div>
       </section>
 
       <section className="grid md:grid-cols-2 gap-4">
         <div className="card">
-          <div className="card-title">Distribución por período del día</div>
+          <div className="card-title">Distribution by time period</div>
           <PeriodChart data={periodData} />
         </div>
         <div className="card">
-          <div className="card-title">Pipeline de limpieza aplicado</div>
+          <div className="card-title">Applied cleaning pipeline</div>
           <ul className="text-sm text-muted space-y-2 list-disc pl-5">
-            <li>Filtro por bounding box de Beijing (115.5–117.5°E, 39.4–41.0°N).</li>
-            <li>Filtro por velocidad implícita (Haversine) {`>`} 200 km/h entre puntos consecutivos.</li>
-            <li>Detección de outliers a 3σ sobre lon/lat.</li>
-            <li>Se retienen <span className="text-text">{stats.total_points.toLocaleString()}</span> registros de <span className="text-text">{stats.num_taxis}</span> taxis.</li>
+            <li>Beijing bounding box filter (115.5–117.5°E, 39.4–41.0°N).</li>
+            <li>Implicit speed filter (Haversine) {`>`} 200 km/h between consecutive points.</li>
+            <li>3σ outlier detection on lon/lat.</li>
+            <li>Retained <span className="text-text">{stats.total_points.toLocaleString()}</span> records from <span className="text-text">{stats.num_taxis}</span> taxis.</li>
           </ul>
           <div className="mt-4 flex gap-2">
-            <Link href="/clusters" className="btn">Ver clustering →</Link>
-            <Link href="/prediction" className="btn">Ver predicción ML →</Link>
+            <Link href="/clusters" className="btn">View clustering →</Link>
+            <Link href="/prediction" className="btn">View ML prediction →</Link>
           </div>
         </div>
       </section>

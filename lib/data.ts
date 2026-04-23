@@ -26,11 +26,11 @@ export async function fetchJson<T>(path: string): Promise<T> {
 }
 
 export const PERIOD_LABELS: Record<string, string> = {
-  late_night: "Madrugada (0–6h)",
-  morning_rush: "Hora punta AM (6–10h)",
-  midday: "Mediodía (10–16h)",
-  evening_rush: "Hora punta PM (16–20h)",
-  night: "Noche (20–24h)",
+  late_night: "Late Night (0–6h)",
+  morning_rush: "Morning Rush (6–10h)",
+  midday: "Midday (10–16h)",
+  evening_rush: "Evening Rush (16–20h)",
+  night: "Night (20–24h)",
 };
 
 export const BEIJING_CENTER: [number, number] = [39.9042, 116.4074];

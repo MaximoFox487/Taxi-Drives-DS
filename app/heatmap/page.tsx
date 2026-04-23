@@ -5,11 +5,11 @@ import { useEffect, useMemo, useState } from "react";
 const HeatmapMap = dynamic(() => import("@/components/HeatmapMap"), { ssr: false });
 
 function periodFor(h: number) {
-  if (h < 6) return { key: "late_night", label: "Madrugada" };
-  if (h < 10) return { key: "morning_rush", label: "Hora punta AM" };
-  if (h < 16) return { key: "midday", label: "Mediodía" };
-  if (h < 20) return { key: "evening_rush", label: "Hora punta PM" };
-  return { key: "night", label: "Noche" };
+  if (h < 6) return { key: "late_night", label: "Late Night" };
+  if (h < 10) return { key: "morning_rush", label: "Morning Rush" };
+  if (h < 16) return { key: "midday", label: "Midday" };
+  if (h < 20) return { key: "evening_rush", label: "Evening Rush" };
+  return { key: "night", label: "Night" };
 }
 
 export default function HeatmapPage() {
@@ -30,10 +30,10 @@ export default function HeatmapPage() {
     <div className="space-y-4">
       <div className="flex items-end flex-wrap gap-4 justify-between">
         <div>
-          <h1 className="text-xl font-semibold">Heatmap de densidad por hora</h1>
+          <h1 className="text-xl font-semibold">Hourly density heatmap</h1>
           <p className="text-muted text-sm">
-            Densidad de puntos GPS de los 500 taxis para la hora seleccionada. Cada franja agrega los
-            7 días del dataset.
+            GPS point density from the 500 taxis for the selected hour. Each slice aggregates all 7
+            days of the dataset.
           </p>
         </div>
         <div className="flex gap-2">
@@ -41,7 +41,7 @@ export default function HeatmapPage() {
             className={`btn ${playing ? "btn-primary" : ""}`}
             onClick={() => setPlaying((p) => !p)}
           >
-            {playing ? "⏸ Pausar" : "▶ Animar 24h"}
+            {playing ? "⏸ Pause" : "▶ Animate 24h"}
           </button>
         </div>
       </div>
@@ -50,7 +50,7 @@ export default function HeatmapPage() {
         <div className="grid md:grid-cols-[1fr_auto] gap-4 items-end mb-4">
           <div>
             <div className="flex items-baseline justify-between mb-1">
-              <label className="text-sm text-muted">Hora</label>
+              <label className="text-sm text-muted">Hour</label>
               <div className="text-lg font-semibold">
                 <span className="text-accent">{hour.toString().padStart(2, "0")}:00</span>
                 <span className="text-muted text-sm ml-2">· {period.label}</span>
@@ -72,7 +72,7 @@ export default function HeatmapPage() {
           </div>
           <div className="flex gap-3 items-end">
             <label className="text-xs text-muted flex flex-col gap-1">
-              Radio
+              Radius
               <input
                 type="range"
                 min={8}
@@ -100,13 +100,13 @@ export default function HeatmapPage() {
 
         <div className="mt-3 flex items-center gap-4 text-xs text-muted flex-wrap">
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-sm" style={{ background: "#1e3a8a" }} /> Baja
+            <span className="w-3 h-3 rounded-sm" style={{ background: "#1e3a8a" }} /> Low
             <span className="w-3 h-3 rounded-sm" style={{ background: "#60a5fa" }} />
             <span className="w-3 h-3 rounded-sm" style={{ background: "#ffb020" }} />
             <span className="w-3 h-3 rounded-sm" style={{ background: "#f97316" }} />
-            <span className="w-3 h-3 rounded-sm" style={{ background: "#ef4444" }} /> Alta
+            <span className="w-3 h-3 rounded-sm" style={{ background: "#ef4444" }} /> High
           </div>
-          <span>Muestra de ~3500 puntos GPS por franja horaria (muestreo estratificado, semilla 42).</span>
+          <span>Sample of ~3500 GPS points per hourly slice (stratified sampling, seed 42).</span>
         </div>
       </div>
 

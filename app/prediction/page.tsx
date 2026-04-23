@@ -11,13 +11,13 @@ import {
 const PredictorMap = dynamic(() => import("@/components/PredictorMap"), { ssr: false });
 
 const DAYS = [
-  "Lunes",
-  "Martes",
-  "Miércoles",
-  "Jueves",
-  "Viernes",
-  "Sábado",
-  "Domingo",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
 ];
 
 const MODEL_METRICS = [
@@ -27,11 +27,11 @@ const MODEL_METRICS = [
 ];
 
 const ABLATION = [
-  { stage: "Solo distancia", r2: 0.0892 },
-  { stage: "+ hora/día", r2: 0.1156 },
+  { stage: "Distance only", r2: 0.0892 },
+  { stage: "+ hour/day", r2: 0.1156 },
   { stage: "+ rush interact.", r2: 0.1321 },
-  { stage: "+ cíclico", r2: 0.1458 },
-  { stage: "+ origen lat/lon", r2: 0.1689 },
+  { stage: "+ cyclic", r2: 0.1458 },
+  { stage: "+ origin lat/lon", r2: 0.1689 },
   { stage: "+ cluster id", r2: 0.1847 },
 ];
 
@@ -73,16 +73,16 @@ export default function PredictionPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-xl font-semibold">Predicción de tiempo de viaje</h1>
+        <h1 className="text-xl font-semibold">Travel time prediction</h1>
         <p className="text-muted text-sm">
-          Resultados entrenados en el notebook sobre {14953} viajes extraídos. A continuación puedes
-          experimentar con un predictor interactivo calibrado al modelo Gradient Boosting ganador.
+          Results trained in the notebook over {14953} extracted trips. Below you can experiment
+          with an interactive predictor calibrated to the winning Gradient Boosting model.
         </p>
       </div>
 
       <section className="grid md:grid-cols-2 gap-4">
         <div className="card">
-          <div className="card-title">Rendimiento de los modelos</div>
+          <div className="card-title">Model performance</div>
           <ModelMetricsChart data={MODEL_METRICS} />
           <div className="grid grid-cols-3 gap-2 mt-3 text-center text-xs">
             {MODEL_METRICS.map((m) => (
@@ -94,20 +94,20 @@ export default function PredictionPage() {
           </div>
         </div>
         <div className="card">
-          <div className="card-title">Ablación — ganancia de R² por feature</div>
+          <div className="card-title">Ablation — R² gain per feature group</div>
           <AblationChart data={ABLATION} />
           <p className="text-xs text-muted mt-2">
-            La distancia explica el ~9% de la varianza; el feature engineering (cíclico, interacción
-            rush, cluster) añade casi otro 10% para llegar al R² ≈ 0.21 final.
+            Distance alone explains ~9% of the variance; feature engineering (cyclic encoding, rush
+            interaction, cluster id) adds another ~10% to reach the final R² ≈ 0.21.
           </p>
         </div>
       </section>
 
       <section className="card">
-        <div className="card-title">Predictor interactivo</div>
+        <div className="card-title">Interactive predictor</div>
         <p className="text-xs text-muted mb-3">
-          Haz click en el mapa para colocar el origen (verde) o destino (rojo). Ajusta la hora y el
-          día de la semana para ver cómo cambia la predicción.
+          Click on the map to place the origin (green) or destination (red). Adjust the hour and day
+          of the week to see how the prediction changes.
         </p>
         <div className="grid md:grid-cols-[2fr_1fr] gap-4">
           <div>
@@ -116,13 +116,13 @@ export default function PredictionPage() {
                 className={`btn ${mode === "origin" ? "btn-primary" : ""}`}
                 onClick={() => setMode("origin")}
               >
-                📍 Colocar origen
+                📍 Place origin
               </button>
               <button
                 className={`btn ${mode === "dest" ? "btn-primary" : ""}`}
                 onClick={() => setMode("dest")}
               >
-                🎯 Colocar destino
+                🎯 Place destination
               </button>
               <button
                 className="btn ml-auto"
@@ -131,7 +131,7 @@ export default function PredictionPage() {
                   setDest(null);
                 }}
               >
-                Limpiar
+                Clear
               </button>
             </div>
             <PredictorMap
@@ -146,7 +146,7 @@ export default function PredictionPage() {
           <div className="space-y-4">
             <div>
               <div className="flex justify-between items-baseline">
-                <label className="text-xs text-muted">Hora de salida</label>
+                <label className="text-xs text-muted">Departure hour</label>
                 <span className="font-mono text-accent">{hour.toString().padStart(2, "0")}:00</span>
               </div>
               <input
@@ -159,7 +159,7 @@ export default function PredictionPage() {
               />
             </div>
             <div>
-              <label className="text-xs text-muted block mb-1">Día de la semana</label>
+              <label className="text-xs text-muted block mb-1">Day of week</label>
               <select
                 className="input w-full"
                 value={dow}
@@ -168,14 +168,14 @@ export default function PredictionPage() {
                 {DAYS.map((d, i) => (
                   <option key={d} value={i}>
                     {d}
-                    {i === 5 || i === 6 ? " (fin de semana)" : ""}
+                    {i === 5 || i === 6 ? " (weekend)" : ""}
                   </option>
                 ))}
               </select>
             </div>
 
             <div className="bg-gradient-to-br from-accent/20 to-panel2 border border-accent/50 rounded-xl p-4 space-y-3">
-              <div className="text-xs uppercase tracking-wider text-muted">Predicción</div>
+              <div className="text-xs uppercase tracking-wider text-muted">Prediction</div>
               {result ? (
                 <>
                   <div className="text-4xl font-semibold text-accent">
@@ -184,20 +184,20 @@ export default function PredictionPage() {
                   </div>
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     <div className="bg-bg/40 rounded-md p-2">
-                      <div className="text-muted">Distancia</div>
+                      <div className="text-muted">Distance</div>
                       <div className="font-mono">{result.dist.toFixed(2)} km</div>
                     </div>
                     <div className="bg-bg/40 rounded-md p-2">
-                      <div className="text-muted">Velocidad est.</div>
+                      <div className="text-muted">Est. speed</div>
                       <div className="font-mono">{result.speed.toFixed(1)} km/h</div>
                     </div>
                   </div>
                   <div className="text-[10px] text-muted leading-snug">
-                    Intervalo ±MAE (17.36 min): <span className="font-mono">{Math.max(1, result.dur - 17.36).toFixed(1)} – {(result.dur + 17.36).toFixed(1)} min</span>
+                    Interval ±MAE (17.36 min): <span className="font-mono">{Math.max(1, result.dur - 17.36).toFixed(1)} – {(result.dur + 17.36).toFixed(1)} min</span>
                   </div>
                 </>
               ) : (
-                <div className="text-sm text-muted">Coloca origen y destino en el mapa.</div>
+                <div className="text-sm text-muted">Place origin and destination on the map.</div>
               )}
             </div>
           </div>
@@ -205,11 +205,11 @@ export default function PredictionPage() {
       </section>
 
       <section className="card">
-        <div className="card-title">Importancia de features (Random Forest)</div>
+        <div className="card-title">Feature importance (Random Forest)</div>
         <FeatureImportanceChart data={FEAT_IMP} />
         <p className="text-xs text-muted mt-2">
-          La distancia domina con ~55% de la importancia; las variables temporales (hora, hora punta,
-          interacción dist×rush) añaden contexto sobre la congestión.
+          Distance dominates with ~55% of the importance; temporal variables (hour, rush-hour flag,
+          distance×rush interaction) add context about congestion.
         </p>
       </section>
     </div>

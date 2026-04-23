@@ -28,8 +28,8 @@ export function HourlyChart({ data }: { data: { hour: number; count: number }[] 
         <YAxis tick={AXIS} width={60} />
         <Tooltip
           contentStyle={{ background: "#12182b", border: "1px solid #2a3459", color: "#e6ebff" }}
-          labelFormatter={(h) => `Hora ${h}:00`}
-          formatter={(v: number) => [v.toLocaleString(), "Registros GPS"]}
+          labelFormatter={(h) => `Hour ${h}:00`}
+          formatter={(v: number) => [v.toLocaleString(), "GPS records"]}
         />
         <Bar dataKey="count" radius={[4, 4, 0, 0]}>
           {withFlag.map((d, i) => (
@@ -43,13 +43,13 @@ export function HourlyChart({ data }: { data: { hour: number; count: number }[] 
 
 export function DailyChart({ data }: { data: { date: string; count: number }[] }) {
   const NAMES: Record<string, string> = {
-    "2008-02-02": "Sáb 2",
-    "2008-02-03": "Dom 3",
-    "2008-02-04": "Lun 4",
-    "2008-02-05": "Mar 5",
-    "2008-02-06": "Mié 6",
-    "2008-02-07": "Jue 7",
-    "2008-02-08": "Vie 8",
+    "2008-02-02": "Sat 2",
+    "2008-02-03": "Sun 3",
+    "2008-02-04": "Mon 4",
+    "2008-02-05": "Tue 5",
+    "2008-02-06": "Wed 6",
+    "2008-02-07": "Thu 7",
+    "2008-02-08": "Fri 8",
   };
   const enriched = data.map((d) => ({
     ...d,
@@ -64,7 +64,7 @@ export function DailyChart({ data }: { data: { date: string; count: number }[] }
         <YAxis tick={AXIS} width={60} />
         <Tooltip
           contentStyle={{ background: "#12182b", border: "1px solid #2a3459", color: "#e6ebff" }}
-          formatter={(v: number) => [v.toLocaleString(), "Registros"]}
+          formatter={(v: number) => [v.toLocaleString(), "Records"]}
         />
         <Bar dataKey="count" radius={[4, 4, 0, 0]}>
           {enriched.map((d, i) => (
@@ -86,7 +86,7 @@ export function PeriodChart({ data }: { data: { period: string; count: number; l
         <YAxis type="category" dataKey="label" tick={AXIS} width={150} />
         <Tooltip
           contentStyle={{ background: "#12182b", border: "1px solid #2a3459", color: "#e6ebff" }}
-          formatter={(v: number) => [v.toLocaleString(), "Registros"]}
+          formatter={(v: number) => [v.toLocaleString(), "Records"]}
         />
         <Bar dataKey="count" radius={[0, 4, 4, 0]}>
           {data.map((_, i) => (
@@ -153,7 +153,7 @@ export function FeatureImportanceChart({
         <YAxis type="category" dataKey="feature" tick={{ ...AXIS, fontSize: 11 }} width={130} />
         <Tooltip
           contentStyle={{ background: "#12182b", border: "1px solid #2a3459", color: "#e6ebff" }}
-          formatter={(v: number) => [(v * 100).toFixed(1) + "%", "Importancia"]}
+          formatter={(v: number) => [(v * 100).toFixed(1) + "%", "Importance"]}
         />
         <Bar dataKey="importance" fill="#a78bfa" radius={[0, 4, 4, 0]} />
       </BarChart>

@@ -17,12 +17,12 @@ function periodFilter(h: number, period: string) {
 }
 
 const PERIODS = [
-  { v: "all", label: "Todo el día" },
-  { v: "morning_rush", label: "Hora punta AM (6–10h)" },
-  { v: "midday", label: "Mediodía (10–16h)" },
-  { v: "evening_rush", label: "Hora punta PM (16–20h)" },
-  { v: "night", label: "Noche (20–24h)" },
-  { v: "late_night", label: "Madrugada (0–6h)" },
+  { v: "all", label: "All day" },
+  { v: "morning_rush", label: "Morning Rush (6–10h)" },
+  { v: "midday", label: "Midday (10–16h)" },
+  { v: "evening_rush", label: "Evening Rush (16–20h)" },
+  { v: "night", label: "Night (20–24h)" },
+  { v: "late_night", label: "Late Night (0–6h)" },
 ];
 
 export default function ClustersPage() {
@@ -59,18 +59,18 @@ export default function ClustersPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-xl font-semibold">Clustering de hotspots (K-Means)</h1>
+        <h1 className="text-xl font-semibold">Hotspot clustering (K-Means)</h1>
         <p className="text-muted text-sm">
-          K-Means ejecutado en el navegador sobre una muestra de {sample.length.toLocaleString()} puntos GPS.
-          Los puntos se estandarizan (equivalente a <code>StandardScaler</code>) y se inicializan con k-means++.
-          Observa cómo los centroides se desplazan al cambiar el período del día (dinámica de la demanda).
+          K-Means runs in the browser over a sample of {sample.length.toLocaleString()} GPS points.
+          Points are standardized (equivalent to <code>StandardScaler</code>) and initialized with
+          k-means++. Notice how centroids shift when you change the time period (demand dynamics).
         </p>
       </div>
 
       <div className="card">
         <div className="grid md:grid-cols-4 gap-4 items-end">
           <div>
-            <label className="text-xs text-muted">Número de clusters K</label>
+            <label className="text-xs text-muted">Number of clusters K</label>
             <div className="flex items-center gap-2">
               <input
                 type="range"
@@ -82,10 +82,10 @@ export default function ClustersPage() {
               />
               <span className="font-mono text-lg text-accent w-6 text-right">{k}</span>
             </div>
-            <div className="text-[11px] text-muted">Óptimo del notebook: K=8</div>
+            <div className="text-[11px] text-muted">Optimal from notebook: K=8</div>
           </div>
           <div>
-            <label className="text-xs text-muted block mb-1">Período</label>
+            <label className="text-xs text-muted block mb-1">Period</label>
             <select
               className="input w-full"
               value={period}
@@ -99,13 +99,13 @@ export default function ClustersPage() {
             </select>
           </div>
           <div className="text-xs text-muted space-y-1">
-            <div>Puntos: <span className="text-text font-mono">{filtered.length}</span></div>
-            <div>Iteraciones: <span className="text-text font-mono">{iterations}</span></div>
-            <div>Inercia (SSE): <span className="text-text font-mono">{inertia.toFixed(2)}</span></div>
-            <div>Tiempo: <span className="text-text font-mono">{ms.toFixed(1)} ms</span></div>
+            <div>Points: <span className="text-text font-mono">{filtered.length}</span></div>
+            <div>Iterations: <span className="text-text font-mono">{iterations}</span></div>
+            <div>Inertia (SSE): <span className="text-text font-mono">{inertia.toFixed(2)}</span></div>
+            <div>Time: <span className="text-text font-mono">{ms.toFixed(1)} ms</span></div>
           </div>
           <button className="btn btn-primary" onClick={() => setTs(Date.now())}>
-            ↻ Recalcular (nueva semilla)
+            ↻ Recompute (new seed)
           </button>
         </div>
       </div>
@@ -113,7 +113,7 @@ export default function ClustersPage() {
       <ClusterMap points={filtered} labels={labels} centroids={centroids} />
 
       <div className="card">
-        <div className="card-title">Tamaño de cada cluster</div>
+        <div className="card-title">Size of each cluster</div>
         <div className="grid grid-cols-4 md:grid-cols-8 gap-2">
           {clusterSizes.map((n, i) => (
             <div key={i} className="bg-panel2 border border-border rounded-md p-2 text-center">
@@ -132,9 +132,9 @@ export default function ClustersPage() {
           ))}
         </div>
         <p className="text-xs text-muted mt-3">
-          Migración temporal observada en el notebook: los centroides se desplazan ~1.2 km entre períodos consecutivos,
-          con un pico de ~1.8 km entre la hora punta AM y el mediodía (demanda desplazándose de zonas residenciales a
-          comerciales).
+          Temporal migration observed in the notebook: centroids shift ~1.2 km between consecutive
+          periods, peaking at ~1.8 km between the morning rush and midday (demand shifting from
+          residential to commercial areas).
         </p>
       </div>
     </div>

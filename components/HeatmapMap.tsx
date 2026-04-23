@@ -77,7 +77,7 @@ export default function HeatmapMap({
     <div className="relative h-[560px] rounded-xl overflow-hidden border border-border">
       {loading && (
         <div className="absolute top-3 right-3 z-[500] bg-panel/80 border border-border rounded-md px-3 py-1 text-xs text-muted backdrop-blur">
-          Cargando hora {hour}:00…
+          Loading hour {hour}:00…
         </div>
       )}
       <MapContainer

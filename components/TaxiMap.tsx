@@ -39,7 +39,7 @@ export default function TaxiMap({
     setError(null);
     fetch(`/data/trajectories/taxi_${taxiId}.json`)
       .then((r) => {
-        if (!r.ok) throw new Error("No encontrado");
+        if (!r.ok) throw new Error("Not found");
         return r.json();
       })
       .then((data: RawPoint[]) => {
@@ -97,7 +97,7 @@ export default function TaxiMap({
     <div className="relative h-[560px] rounded-xl overflow-hidden border border-border">
       {loading && (
         <div className="absolute top-3 right-3 z-[500] bg-panel/80 border border-border rounded-md px-3 py-1 text-xs text-muted backdrop-blur">
-          Cargando taxi #{taxiId}…
+          Loading taxi #{taxiId}…
         </div>
       )}
       {error && (
@@ -107,7 +107,7 @@ export default function TaxiMap({
       )}
       {!loading && taxiId != null && filtered.length === 0 && !error && (
         <div className="absolute top-3 right-3 z-[500] bg-panel/80 border border-border rounded-md px-3 py-1 text-xs text-muted backdrop-blur">
-          Sin puntos para los filtros seleccionados.
+          No points match the selected filters.
         </div>
       )}
       <MapContainer
@@ -144,9 +144,9 @@ export default function TaxiMap({
         <FitBounds points={latlngs} />
       </MapContainer>
       <div className="absolute bottom-3 left-3 z-[500] bg-panel/90 border border-border rounded-md px-3 py-2 text-xs backdrop-blur space-y-1">
-        <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500" /> Punto inicial</div>
-        <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-red-500" /> Punto final</div>
-        <div className="text-muted pt-1">{segments.length} viajes · {filtered.length} puntos GPS</div>
+        <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500" /> Start point</div>
+        <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-red-500" /> End point</div>
+        <div className="text-muted pt-1">{segments.length} trips · {filtered.length} GPS points</div>
       </div>
     </div>
   );
